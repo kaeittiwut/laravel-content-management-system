@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 
 class PostController extends Controller
 {
@@ -15,7 +14,14 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        // $posts = Post::all();
+
+        /* Make users see only their own posts. */
+        // $posts = auth()->user()->posts;
+
+        /* Make users see only their own posts with Paginate. */
+        $posts = auth()->user()->posts()->paginate(5);
+
         return view('admin.posts.index', ['posts' => $posts]);
     }
 
@@ -26,6 +32,9 @@ class PostController extends Controller
      */
     public function create()
     {
+        /* Policy that determine whether the user can create models. */
+        $this->authorize('create', Post::class);
+
         return view('admin.posts.create');
     }
 
@@ -37,6 +46,9 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        /* Policy that determine whether the user can create models. */
+        $this->authorize('create', Post::class);
+
         $inputs = request()->validate([
             'title' => 'required|min:4|max:255',
             'post_image' => 'file|mimes:jpeg,png,jpg,gif,svg',
@@ -63,6 +75,7 @@ class PostController extends Controller
     public function show(Post $post)
     {
         // Post::findOrFail($id);
+
         return view('blog-post', ['post' => $post]);
     }
 
@@ -74,6 +87,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        /* Policy that determine whether the user can view the model. */
+        $this->authorize('view', $post);
+
         return view('admin.posts.edit', ['post' => $post]);
     }
 
@@ -100,10 +116,13 @@ class PostController extends Controller
         $post->title = $inputs['title'];
         $post->body = $inputs['body'];
 
-        /*Update the Owner of post with current User.*/
+        /* Update the Owner of post with current User. */
         // auth()->user()->posts()->save($post);
 
-        /*Update only field that has changed.*/
+        /* Policy that determine whether the user can update the model. */
+        $this->authorize('update', $post);
+
+        /* Update only field that has changed.*/
         $post->save();
 
         session()->flash('updated-message', '" ' . $inputs['title'] . ' "' . ' was updated!');
@@ -119,6 +138,9 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        /* Policy that determine whether the user can delete the model. */
+        $this->authorize('delete', $post);
+
         $post->delete();
 
         session()->flash('deleted-message', '" ' . $post->title . ' "' . ' was deleted!');
