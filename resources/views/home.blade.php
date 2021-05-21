@@ -7,7 +7,7 @@
         </h1>
 
         <!-- Blog Post -->
-        @foreach ($posts as $post)
+        @foreach ($posts->reverse() as $post)
             <div class="card mb-4">
                 <img class="card-img-top" src="{{ $post->post_image }}" alt="Card image cap">
                 <div class="card-body">

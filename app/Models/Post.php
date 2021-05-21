@@ -20,13 +20,14 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-    // Mutator
+    /* Image Mutator */
+    /* Don't forget to comment all of mutator function before use Seeder!! */
     public function setPostImageAttribute($value)
     {
         $this->attributes['post_image'] = asset('storage/' . $value);
     }
 
-    // Accessors
+    /* Image Accessors */
     public function getPostImageAttribute($value)
     {
         if (strpos($value, 'https://') !== false || strpos($value, 'http://') !== false) {
