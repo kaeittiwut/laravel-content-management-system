@@ -33,3 +33,8 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/admin/users/{user}/update', [App\Http\Controllers\UserController::class, 'update'])->name('user.profile.update');
 
 });
+
+Route::middleware(['auth', 'role:Admin'])->group(function () {
+    Route::get('/admin/users', [App\Http\Controllers\UserController::class, 'index'])->name('user.index');
+    Route::delete('/admin/users/{user}/destroy', [App\Http\Controllers\UserController::class, 'destroy'])->name('user.destroy');
+});

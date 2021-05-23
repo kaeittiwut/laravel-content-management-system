@@ -17,10 +17,10 @@ class PostController extends Controller
         // $posts = Post::all();
 
         /* Make users see only their own posts. */
-        // $posts = auth()->user()->posts;
+        $posts = auth()->user()->posts;
 
         /* Make users see only their own posts with Paginate. */
-        $posts = auth()->user()->posts()->paginate(5);
+        // $posts = auth()->user()->posts()->paginate(5);
 
         return view('admin.posts.index', ['posts' => $posts]);
     }
@@ -61,7 +61,7 @@ class PostController extends Controller
 
         auth()->user()->posts()->create($inputs);
 
-        session()->flash('created-message', '" ' . $inputs['title'] . ' "' . ' was created!');
+        session()->flash('created-message', $inputs['title']);
 
         return redirect()->route('post.index');
     }
@@ -125,7 +125,7 @@ class PostController extends Controller
         /* Update only field that has changed.*/
         $post->save();
 
-        session()->flash('updated-message', '" ' . $inputs['title'] . ' "' . ' was updated!');
+        session()->flash('updated-message', $inputs['title']);
 
         return redirect()->route('post.index');
     }
@@ -143,7 +143,7 @@ class PostController extends Controller
 
         $post->delete();
 
-        session()->flash('deleted-message', '" ' . $post->title . ' "' . ' was deleted!');
+        session()->flash('deleted-message', $post->title);
 
         return back();
     }

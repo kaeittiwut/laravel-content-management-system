@@ -23,6 +23,9 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/sb-admin-2.css') }}" rel="stylesheet">
 
+    <!-- Custom styles for this page -->
+    <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+
 </head>
 
 <body id="page-top">
@@ -61,6 +64,13 @@
 
             <!-- Nav Item - Posts Collapse Menu -->
             <x-nav-admin-posts></x-nav-admin-posts>
+
+            @if (auth()->user()->userHasRole('Admin'))
+                <!-- Nav Item - Users Collapse Menu -->
+                <x-nav-admin-users></x-nav-admin-users>
+            @endif
+
+
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">

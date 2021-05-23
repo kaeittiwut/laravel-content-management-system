@@ -3,11 +3,17 @@
         <h1>All Posts</h1>
 
         @if (session('created-message'))
-            <div class="alert alert-success"> {{ session('created-message') }}</div>
+            <div class="alert alert-success" role="alert">
+                Post <b>{{ session('created-message') }}</b> was created!
+            </div>
         @elseif(session('updated-message'))
-            <div class="alert alert-success"> {{ session('updated-message') }}</div>
+            <div class="alert alert-warning">
+                Post <b>{{ session('updated-message') }}</b> was updated!
+            </div>
         @elseif(session('deleted-message'))
-            <div class="alert alert-danger"> {{ session('deleted-message') }}</div>
+            <div class="alert alert-danger">
+                Post <b>{{ session('deleted-message') }}</b> was deleted!
+            </div>
         @endif
 
         <div class="card shadow mb-4">
@@ -25,7 +31,7 @@
                                 <th>Image</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
-                                <th>Delete</th>
+                                <th>Option</th>
                             </tr>
                         </thead>
                         <tfoot>
@@ -36,7 +42,7 @@
                                 <th>Image</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
-                                <th>Delete</th>
+                                <th>Option</th>
                             </tr>
                         </tfoot>
                         <tbody>
@@ -54,7 +60,13 @@
                                             enctype="multipart/form-data">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                            <a href="{{ route('post.edit', $post->id) }}"
+                                                class="btn btn-sm btn-warning btn-circle">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <button type="submit" class="btn btn-sm btn-danger btn-circle delete-button">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
                                         </form>
                                     </td>
                                 </tr>
@@ -66,9 +78,9 @@
             </div>
         </div>
 
-        <div class="pagination justify-content-center">
+        {{-- <div class="pagination justify-content-center">
             {{ $posts->links() }}
-        </div>
+        </div> --}}
     @endsection
 
     @section('scripts')
@@ -77,6 +89,6 @@
         <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
 
         <!-- Page level custom scripts -->
-        {{-- <script src="{{ asset('js/demo/datatables-demo.js') }}"></script> --}}
+        <script src="{{ asset('js/demo/datatables-demo.js') }}"></script>
     @endsection
 </x-admin-master>

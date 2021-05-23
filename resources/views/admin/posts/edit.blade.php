@@ -12,7 +12,7 @@
             </div>
 
             <div class="form-group">
-                <div><img src="{{ $post->post_image }}" class="img-thumbnail mx-auto d-block" width="250"></div>
+                <div><img src="{{ $post->post_image }}" class="img-thumbnail mx-auto d-block"></div>
                 <label for="post_image" class="form-label">Image</label>
                 <input class="form-control" type="file" name="post_image" id="post_image">
             </div>

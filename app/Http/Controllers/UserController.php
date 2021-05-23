@@ -14,7 +14,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+        return view('admin.users.index', ['users' => $users]);
     }
 
     /**
@@ -46,6 +47,9 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        /* Policy that determine whether the user can view the model. */
+        $this->authorize('view', $user);
+
         return view('admin.users.profile', ['user' => $user]);
     }
 
@@ -93,8 +97,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        session()->flash('deleted-message', $user->name);
+
+        return back();
     }
 }
