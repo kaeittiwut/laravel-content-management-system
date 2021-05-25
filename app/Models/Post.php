@@ -22,10 +22,10 @@ class Post extends Model
 
     /* Image Mutator */
     /* Don't forget to comment all of mutator function before use Seeder!! */
-    public function setPostImageAttribute($value)
-    {
-        $this->attributes['post_image'] = asset('storage/' . $value);
-    }
+    // public function setPostImageAttribute($value)
+    // {
+    //     $this->attributes['post_image'] = asset('storage/' . $value);
+    // }
 
     /* Image Accessors */
     public function getPostImageAttribute($value)

@@ -26,5 +26,9 @@ class DatabaseSeeder extends Seeder
         // });
 
         User::factory(10)->has(Post::factory()->count(2))->create();
+
+        $this->call([
+            RoleSeeder::class,
+        ]);
     }
 }

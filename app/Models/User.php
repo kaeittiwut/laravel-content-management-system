@@ -44,10 +44,10 @@ class User extends Authenticatable
 
     /* Hash Password Mutator */
     /* Don't forget to comment all of mutator function before use Seeder!! */
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = bcrypt($value);
-    }
+    // public function setPasswordAttribute($value)
+    // {
+    //     $this->attributes['password'] = bcrypt($value);
+    // }
 
     /* Avatar Accessors */
     public function getAvatarAttribute($value)
@@ -82,4 +82,5 @@ class User extends Authenticatable
         }
         return false;
     }
+
 }

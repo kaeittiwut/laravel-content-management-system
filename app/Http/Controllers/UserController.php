@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -50,7 +51,7 @@ class UserController extends Controller
         /* Policy that determine whether the user can view the model. */
         $this->authorize('view', $user);
 
-        return view('admin.users.profile', ['user' => $user]);
+        return view('admin.users.profile', ['user' => $user, 'roles' => Role::all()]);
     }
 
     /**
@@ -79,7 +80,6 @@ class UserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255'],
             'avatar' => ['file', 'mimes:jpeg,png,jpg,gif,svg'],
-
         ]);
 
         if (request('avatar')) {
@@ -87,6 +87,20 @@ class UserController extends Controller
         }
 
         $user->update($inputs);
+
+        return back();
+    }
+
+    public function attach(User $user)
+    {
+        $user->roles()->attach(request('role'));
+
+        return back();
+    }
+
+    public function detach(User $user)
+    {
+        $user->roles()->detach(request('role'));
 
         return back();
     }

@@ -1,7 +1,7 @@
 <x-admin-master>
 
     @section('content')
-        <h1>Create</h1>
+        <h1>Create a post</h1>
 
         <form method="post" action="{{ route('post.store') }}" enctype="multipart/form-data">
             @csrf
