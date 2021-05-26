@@ -1,24 +1,28 @@
 <x-admin-master>
     @section('content')
-        <h1>Users</h1>
+        <h1 class="text-dark">Users</h1>
 
         @if (session('created-message'))
-            <div class="alert alert-success">
+            <div class="alert bg-success text-white" role="alert">
                 User <b>{{ session('created-message') }}</b> has been created!
             </div>
         @elseif(session('updated-message'))
-            <div class="alert alert-warning">
+            <div class="alert bg-warning text-dark">
                 User <b>{{ session('updated-message') }}</b> has been updated!
             </div>
+        @elseif(session('not-updated-message'))
+            <div class="alert bg-warning text-dark">
+                This <b>{{ session('not-updated-message') }}</b> role has nothing changed.
+            </div>
         @elseif(session('deleted-message'))
-            <div class="alert alert-danger">
+            <div class="alert bg-danger text-white">
                 User <b>{{ session('deleted-message') }}</b> has been deleted!
             </div>
         @endif
 
         <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+            <div class="card-header">
+                <h6 class="m-0 font-weight-bold text-primary">All users table</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -62,7 +66,7 @@
                                     <td>{{ $user->email }}</td>
                                     <td>
                                         @foreach ($user->roles as $user_roles)
-                                            <span class="badge badge-pill badge-success">{{ $user_roles->name }}</span>
+                                            <span class="badge badge-pill badge-info">{{ $user_roles->name }}</span>
                                         @endforeach
                                     </td>
 
@@ -83,7 +87,7 @@
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form> --}}
-                                        <a data-toggle="modal" data-target="#DeleteUserModal"
+                                        <a data-toggle="modal" data-target="#DeleteUserModal-{{ $user->id }}"
                                             class="btn btn-sm btn-danger btn-circle delete-button">
                                             <i class="fas fa-trash"></i>
                                         </a>
@@ -91,8 +95,8 @@
                                 </tr>
 
                                 <!-- Delete Modal-->
-                                <div class="modal fade" id="DeleteUserModal" tabindex="-1" role="dialog"
-                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="DeleteUserModal-{{ $user->id }}" tabindex="-1"
+                                    role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">

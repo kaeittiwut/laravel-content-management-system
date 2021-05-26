@@ -39,4 +39,18 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::put('/admin/users/{user}/attach', [App\Http\Controllers\UserController::class, 'attach'])->name('user.role.attach');
     Route::put('/admin/users/{user}/detach', [App\Http\Controllers\UserController::class, 'detach'])->name('user.role.detach');
     Route::delete('/admin/users/{user}/destroy', [App\Http\Controllers\UserController::class, 'destroy'])->name('user.destroy');
+
+    Route::get('/admin/authorization/roles', [App\Http\Controllers\RoleController::class, 'index'])->name('roles.index');
+    Route::post('/admin/authorization/roles', [App\Http\Controllers\RoleController::class, 'store'])->name('roles.store');
+    Route::delete('/admin/authorization/roles/{role}/destroy', [App\Http\Controllers\RoleController::class, 'destroy'])->name('roles.destroy');
+    Route::get('/admin/authorization/roles/{role}/edit', [App\Http\Controllers\RoleController::class, 'edit'])->name('roles.edit');
+    Route::put('/admin/authorization/roles/{role}/update', [App\Http\Controllers\RoleController::class, 'update'])->name('roles.update');
+    Route::put('/admin/authorization/roles/{role}/attach', [App\Http\Controllers\RoleController::class, 'attach'])->name('role.attach');
+    Route::put('/admin/authorization/roles/{role}/detach', [App\Http\Controllers\RoleController::class, 'detach'])->name('role.detach');
+
+    Route::get('/admin/authorization/permissions', [App\Http\Controllers\PermissionController::class, 'index'])->name('permissions.index');
+    Route::post('/admin/authorization/permissions', [App\Http\Controllers\PermissionController::class, 'store'])->name('permissions.store');
+    Route::delete('/admin/authorization/permissions/{permission}/destroy', [App\Http\Controllers\PermissionController::class, 'destroy'])->name('permissions.destroy');
+    Route::get('/admin/authorization/permissions/{permission}/edit', [App\Http\Controllers\PermissionController::class, 'edit'])->name('permissions.edit');
+    Route::put('/admin/authorization/permissions/{permission}/update', [App\Http\Controllers\PermissionController::class, 'update'])->name('permissions.update');
 });

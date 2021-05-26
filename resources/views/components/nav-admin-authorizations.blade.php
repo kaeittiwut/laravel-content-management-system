@@ -1,0 +1,17 @@
+<li class="nav-item {{ request()->is('admin/authorization*') ? 'active' : '' }}">
+    <a class="nav-link {{ request()->is('admin/authorization*') ? '' : 'collapsed' }}" href="#" data-toggle="collapse"
+        data-target="#collapseAuthorizations" aria-expanded="true" aria-controls="collapseAuthorizations">
+        <i class="fas fa-fw fa-cog"></i>
+        <span>Authorizations</span>
+    </a>
+    <div id="collapseAuthorizations" class="collapse {{ request()->is('admin/authorization*') ? 'show' : '' }}"
+        aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Authorizations</h6>
+            <a class="collapse-item {{ request()->is('admin/authorization/roles') ? 'active' : '' }}"
+                href="{{ route('roles.index') }}">Roles</a>
+            <a class="collapse-item {{ request()->is('admin/authorization/permissions') ? 'active' : '' }}"
+                href="{{ route('permissions.index') }}">Permissions</a>
+        </div>
+    </div>
+</li>

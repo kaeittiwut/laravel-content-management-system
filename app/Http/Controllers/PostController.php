@@ -59,6 +59,7 @@ class PostController extends Controller
             $inputs['post_image'] = request('post_image')->store('images');
         }
 
+        /* Create the Owner of post with current User. */
         auth()->user()->posts()->create($inputs);
 
         session()->flash('created-message', $inputs['title']);
@@ -102,6 +103,9 @@ class PostController extends Controller
      */
     public function update(Post $post)
     {
+        /* Policy that determine whether the user can update the model. */
+        $this->authorize('update', $post);
+
         $inputs = request()->validate([
             'title' => 'required|min:4|max:255',
             'post_image' => 'file|mimes:jpeg,png,jpg,gif,svg',
@@ -118,9 +122,6 @@ class PostController extends Controller
 
         /* Update the Owner of post with current User. */
         // auth()->user()->posts()->save($post);
-
-        /* Policy that determine whether the user can update the model. */
-        $this->authorize('update', $post);
 
         /* Update only field that has changed.*/
         $post->save();

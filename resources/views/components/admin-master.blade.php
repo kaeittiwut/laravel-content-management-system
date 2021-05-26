@@ -68,6 +68,7 @@
             @if (auth()->user()->userHasRole('Admin'))
                 <!-- Nav Item - Users Collapse Menu -->
                 <x-nav-admin-users></x-nav-admin-users>
+                <x-nav-admin-authorizations></x-nav-admin-authorizations>
             @endif
 
             <!-- Nav Item - Utilities Collapse Menu -->

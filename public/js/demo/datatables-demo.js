@@ -4,7 +4,7 @@
 // });
 
 $(document).ready(function () {
-    var t = $("#dataTable").DataTable({
+    var t = $("#postDataTable").DataTable({
         columnDefs: [
             {
                 searchable: false,
@@ -12,7 +12,7 @@ $(document).ready(function () {
                 targets: [0],
             },
         ],
-        order: [[0, "asc"]],
+        order: [[3, "asc"]],
     });
 
     t.on("order.dt search.dt", function () {
@@ -46,7 +46,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    var t = $("#roleDataTable").DataTable({
+    var t = $("#userRoleDataTable").DataTable({
         columnDefs: [
             {
                 searchable: false,
@@ -55,6 +55,69 @@ $(document).ready(function () {
             },
         ],
         order: [[2, "asc"]],
+    });
+
+    t.on("order.dt search.dt", function () {
+        t.column(0, { search: "applied", order: "applied" })
+            .nodes()
+            .each(function (cell, i) {
+                cell.innerHTML = i + 1;
+            });
+    }).draw();
+});
+
+$(document).ready(function () {
+    var t = $("#roleDataTable").DataTable({
+        columnDefs: [
+            {
+                searchable: false,
+                orderable: false,
+                targets: [0, -1],
+            },
+        ],
+        order: [[1, "asc"]],
+    });
+
+    t.on("order.dt search.dt", function () {
+        t.column(0, { search: "applied", order: "applied" })
+            .nodes()
+            .each(function (cell, i) {
+                cell.innerHTML = i + 1;
+            });
+    }).draw();
+});
+
+$(document).ready(function () {
+    var t = $("#permissionOfRoleDataTable").DataTable({
+        columnDefs: [
+            {
+                searchable: false,
+                orderable: false,
+                targets: [0, -1, -2],
+            },
+        ],
+        order: [[1, "asc"]],
+    });
+
+    t.on("order.dt search.dt", function () {
+        t.column(0, { search: "applied", order: "applied" })
+            .nodes()
+            .each(function (cell, i) {
+                cell.innerHTML = i + 1;
+            });
+    }).draw();
+});
+
+$(document).ready(function () {
+    var t = $("#permissionDataTable").DataTable({
+        columnDefs: [
+            {
+                searchable: false,
+                orderable: false,
+                targets: [0, -1],
+            },
+        ],
+        order: [[1, "asc"]],
     });
 
     t.on("order.dt search.dt", function () {
